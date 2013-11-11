@@ -519,17 +519,20 @@ class TestClass(unittest.TestCase):
 
     def test_054_start_machine(self):
         """--->Start machine"""
-        self.test_050_list_machines()
-        print "\n>>>Start Machine:"
-        for backend_id in self.test_config['BACKENDS']:
-            for machine in self.test_config['BACKENDS'][backend_id]['machines']:
-                if self.test_config['MACHINE_NAME'] in machine and \
-                        self.test_config['BACKENDS'][backend_id]['machines'][machine]['can_start']:
-                    machine_id = self.test_config['BACKENDS'][backend_id]['machines'][machine]['id']
-                    machines.start_machine(self.uri, backend_id, machine_id)
-                    return True
+        try:
+            self.test_050_list_machines()
+            print "\n>>>Start Machine:"
+            for backend_id in self.test_config['BACKENDS']:
+                for machine in self.test_config['BACKENDS'][backend_id]['machines']:
+                    if self.test_config['MACHINE_NAME'] in machine and \
+                            self.test_config['BACKENDS'][backend_id]['machines'][machine]['can_start']:
+                        machine_id = self.test_config['BACKENDS'][backend_id]['machines'][machine]['id']
+                        machines.start_machine(self.uri, backend_id, machine_id)
+                        return True
+        except:
+            print "Machine could not be started"
 
-###########CLEANING UP#####################################
+##########CLEANING UP#####################################
 
     def test_055_destroy_machines(self):
         """--->Destroy Machines"""
